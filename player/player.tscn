@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://c8yssrs2pdc7b"]
+
+[ext_resource type="Script" uid="uid://dnjqwj4xg1lxj" path="res://player/player.gd" id="1_twjms"]
+[ext_resource type="Texture2D" uid="uid://cga60v1i3bbt8" path="res://common/player.png" id="2_iwjif"]
+[ext_resource type="Script" uid="uid://bfcj1td33bi8" path="res://player/state_machine.gd" id="3_607jj"]
+[ext_resource type="Script" uid="uid://cp8wpjje0ngvo" path="res://player/states/idle.gd" id="4_b2jo5"]
+[ext_resource type="Script" uid="uid://nd2by40308sg" path="res://player/states/running.gd" id="5_rnjg4"]
+[ext_resource type="Script" uid="uid://b3g3b2tyrqjw8" path="res://player/states/jumping.gd" id="6_teuq4"]
+[ext_resource type="Script" uid="uid://5khq852e2j55" path="res://player/states/falling.gd" id="7_heycx"]
+[ext_resource type="Script" uid="uid://3q8o5uwgt48x" path="res://player/states/gliding.gd" id="8_72m7p"]
+[ext_resource type="FontFile" path="res://common/monserrate_bold.tres" id="9_61d06"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(80, 80)
+
+[node name="PlayerMultipleScripts" type="CharacterBody2D" unique_id=795329411]
+script = ExtResource("1_twjms")
+
+[node name="player" type="Sprite2D" parent="." unique_id=805978408]
+position = Vector2(0, -48)
+texture = ExtResource("2_iwjif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1024435620]
+position = Vector2(0, -40)
+shape = SubResource("1")
+
+[node name="StateMachine" type="Node" parent="." unique_id=896890804]
+script = ExtResource("3_607jj")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=456573428]
+script = ExtResource("4_b2jo5")
+
+[node name="Running" type="Node" parent="StateMachine" unique_id=1358782615]
+script = ExtResource("5_rnjg4")
+
+[node name="Jumping" type="Node" parent="StateMachine" unique_id=1837417764]
+script = ExtResource("6_teuq4")
+
+[node name="Falling" type="Node" parent="StateMachine" unique_id=383468495]
+script = ExtResource("7_heycx")
+
+[node name="Gliding" type="Node" parent="StateMachine" unique_id=686585456]
+script = ExtResource("8_72m7p")
+
+[node name="Label" type="Label" parent="." unique_id=457101665]
+offset_left = -39.0
+offset_top = -131.0
+offset_right = 39.0
+offset_bottom = -103.0
+theme_override_fonts/font = ExtResource("9_61d06")
+text = "State"
